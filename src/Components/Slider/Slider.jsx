@@ -87,6 +87,31 @@ const Slider = () => {
     () => {
       const titleItems = gsap.utils.toArray(`.${classes.title}`);
       const subtitleItems = gsap.utils.toArray(`.${classes.subTitle}`);
+      const subtitleItemsSpans = gsap.utils.toArray(`.${classes.subTitle} span`);
+
+      const firstTitle = document.querySelector(`.${classes.title}:nth-of-type(1)`);
+      console.log(firstTitle);
+      gsap.to(`.${classes.separator}`, {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+        delay: 1,
+      });
+      gsap.from(`.${classes.textContainer} .${classes.inner}`, {
+        yPercent: 100,
+        duration: 1.5,
+        ease: "power2.out",
+        delay: 1.5,
+      });
+
+      subtitleItemsSpans.forEach((item) => {
+        gsap.from(item, {
+          yPercent: 100,
+          duration: 1.5,
+          ease: "power2.out",
+          delay: 2,
+        });
+      });
 
       titleLoopRef.current = verticalLoop(titleItems, { speed: 0.7, repeat: -1, paused: true });
       subtitleLoopRef.current = verticalLoop(subtitleItems, { speed: 0.7, repeat: -1, paused: true, paddingBottom: 15 });
@@ -152,12 +177,14 @@ const Slider = () => {
       {/* Title and Subtitle Container */}
       <div className={classes.slideContent}>
         <div className={classes.textContainer}>
-          {slides.map((slide, index) => (
-            <div key={index} className={classes.title}>
-              <span>0{index + 1}</span>
-              <h1>{slide.title}</h1>
-            </div>
-          ))}
+          <div className={classes.inner}>
+            {slides.map((slide, index) => (
+              <div key={index} className={classes.title}>
+                <span>0{index + 1}</span>
+                <h1>{slide.title}</h1>
+              </div>
+            ))}
+          </div>
         </div>
         <div className={classes.separator} />
 
